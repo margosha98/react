@@ -3,23 +3,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import StoreContext from './redux/StoreContext';
+import { Provider } from 'react-redux';
 
-export let rerenderPage = () => {
+
     ReactDOM.render(
     <React.StrictMode>
-        <App store={store} dispatch = {store.dispatch.bind(store)} />
+        <Provider store={store}>
+            <App />
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
     );
- }
-
-rerenderPage(store.getState())
-
-store.subscribe( () => {
-    let state = store.getState()
-    rerenderPage(state)
-})
-
 
 
 // If you want to start measuring performance in your app, pass a function
