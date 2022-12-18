@@ -2,7 +2,6 @@ import react from "react";
 import classes from './FriendItem.module.css';
 
 const FriendItem = (props) => {
-console.log(props)
     return(
       <div className={classes.friendItem}>
         <div>
