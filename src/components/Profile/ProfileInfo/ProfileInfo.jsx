@@ -5,11 +5,16 @@ const ProfileInfo = (props) => {
     return(
         <div className={classes.profileInfo}>
             <div>
-                <img className={classes.img} src ='https://cdn.iconscout.com/icon/free/png-256/avatar-373-456325.png'/>
+                <h2>{props.fullName}</h2>
+                <img className={classes.img} src ={props.photos.large}/>
             </div>
             <div className={classes.item}>
-                Avatar + discription
+                {props.aboutMe}
             </div>
+            <div> 
+                { props.lookingForAJob ? <p>Ищу работу</p> : <p>Не ищу работу</p>}
+            </div>
+            <p> status: {props.lookingForAJobDescription}</p>
         </div>
     );
 }

@@ -9,3 +9,8 @@
     padding: 10px;
   }
   
+.link {
+  float: right;
+  color: white;
+  text-decoration: none;
+}
