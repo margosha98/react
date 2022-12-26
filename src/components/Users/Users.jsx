@@ -1,10 +1,10 @@
-import axios from "axios";
 import React from "react";
 import classes from './Users.module.css';
 import userPhoto from '../../assests/img/user.png'
 import { NavLink } from "react-router-dom";
 
 let Users = (props) => {
+    window.props = props
     let pageValue = Math.ceil(props.totalUsers / props.pageSize)
     let pages = [];
 
@@ -31,8 +31,35 @@ let Users = (props) => {
                     </NavLink>
                     <div>
                         { u.followed
-                        ? <button onClick={ () => {props.toUnfollow(u.id)}}>Unfollow </button>
-                        : <button onClick={ () => {props.toFollow(u.id)}}>Follow </button>}
+                        ? <button disabled = {props.isToggleButton.some( id => id===u.id)} 
+                        onClick={ () => {
+                            props.toUnfollowThunk(u.id)
+                            // props.isFetchToogleButton(true,u.id)
+                            // userAPI.toUnfollowRequest(u.id).then(data => {
+                            //     if (data.resultCode === 0) {
+                            //         props.toUnfollow(u.id)
+                            //     }
+                            //     props.isFetchToogleButton(false,u.id)
+                            
+                            // }) 
+                        }
+                        }>Unfollow </button>
+                        : <button disabled = {props.isToggleButton.some( id => id===u.id)} 
+                         onClick={ () => {
+                            props.toFollowThunk(u.id)
+                        //     props.isFetchToogleButton(true,u.id)
+                        //     userAPI.toFollowRequest(u.id).then(data => {
+                        //     if (data.resultCode === 0) {
+                        //         props.toFollow(u.id)
+                        //     }
+                        //     props.isFetchToogleButton(false,u.id)
+                            
+                        // })
+
+
+                        }
+
+                        }>Follow </button>}
                     </div>
                 </div>
                 <div>

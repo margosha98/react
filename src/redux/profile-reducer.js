@@ -1,3 +1,5 @@
+import {profileAPI} from '../api/api'
+
 const addNewPost = 'ADD-NEW-POST'
 const updatePostText = 'UPDATE-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
@@ -51,3 +53,15 @@ export const onPostChangeActionCreator = (newText) => ({
 export const setUserProfile = (userProfile) => ({
     type: SET_USER_PROFILE, userProfile
 })
+
+
+export const getUserProfileThunk = (userId) => {
+    return (dispatch) => {
+        profileAPI.getUserProfile(userId).then(data => {
+            dispatch(setUserProfile(data));
+             //dispatch(setUsersCount(data.totalCount))
+         })
+                            
+    }
+} 
+

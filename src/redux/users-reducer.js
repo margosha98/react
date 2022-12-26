@@ -1,3 +1,4 @@
+import {userAPI} from './../api/api'
 
 let FOLLOW = 'FOLLOW'
 let UNFOLLOW = 'UNFOLLOW'
@@ -5,6 +6,7 @@ let SET_USERS = 'SET_USERS'
 let SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 let SET_USERS_COUNT = 'SET_USERS_COUNT'
 let IS_FETCH_LOADING = 'IS_FETCH_LOADING'
+let IS_FETCH_TOGGLE_BUTTON = 'IS_FETCH_TOGGLE_BUTTON'
 
 let initialState = {
     users: [],
@@ -12,6 +14,7 @@ let initialState = {
     totalUsers: 20,
     pageSize: 7,
     isLoading: false,
+    isToggle: [],
 
 }
 
@@ -49,6 +52,16 @@ let userReducer = (state = initialState, action) => {
         case IS_FETCH_LOADING: {
             return { ...state, isLoading: action.isLoading}
         }
+        case IS_FETCH_TOGGLE_BUTTON: {
+            return { ...state, isToggle: (
+                action.isToggle
+                ? [...state.isToggle, action.id]
+                : state.isToggle.filter( id => id!==action.id)
+
+            )}
+        }
+        
+
 
         default:
             return state;
@@ -79,7 +92,47 @@ export const isFetchLoading = (isLoading) => {
     return { type: IS_FETCH_LOADING, isLoading}
 }
 
+export const isFetchToogleButton = (isToggle, id) => {
+    return { type: IS_FETCH_TOGGLE_BUTTON, isToggle, id} 
+}
 
+
+export const getUsersThunk = (pageSize, currentPage) => {
+    return (dispatch) => {
+        dispatch(isFetchLoading(true))
+        userAPI.getUsers(pageSize, currentPage).then(data => {
+                dispatch(isFetchLoading(false))
+                dispatch(setUsers(data.items));
+                //dispatch(setUsersCount(response.data.totalCount))
+            })
+    } 
+}
+
+export const toUnfollowThunk = (userId) => {
+    return (dispatch) => {
+        dispatch(isFetchToogleButton(true,userId))
+        userAPI.toUnfollowRequest(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(toUnfollow(userId))
+            }
+            dispatch(isFetchToogleButton(false,userId))
+        
+        })
+    } 
+}
+
+export const toFollowThunk = (userId) => {
+    return (dispatch) => {
+        dispatch(isFetchToogleButton(true,userId))
+        userAPI.toFollowRequest(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(toFollow(userId))
+            }
+        dispatch(isFetchToogleButton(false,userId))
+                            
+    })
+    } 
+}
 
 
 

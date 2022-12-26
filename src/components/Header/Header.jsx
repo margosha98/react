@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import classes from './Header.module.css'
 
 const Header = (props) => {
-    debugger
     return(
         <header className={classes.header}> 
             { props.isAuth
