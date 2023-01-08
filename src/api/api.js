@@ -36,12 +36,36 @@ export const headerAPI = {
             .then(response => {
                 return response.data
             })
+    },
+    toLoginAPI(email,password,rememberMe) {
+        return instance.post(`auth/login`, {email, password, rememberMe})
+            .then(response => {
+                return response.data
+            })
+    },
+    toLogoutAPI() {
+        return instance.delete(`auth/login`) 
+        .then(response => {
+            return response.data
+        })
     }
 }
 
 export const profileAPI = {
     getUserProfile(userId) {
         return instance.get(`profile/${userId}`)
+            .then(response => {
+                return response.data
+            })
+    },
+    getUserStatus(userId) {
+        return instance.get(`profile/status/${userId}`)
+            .then(response => {
+                return response.data
+            })
+    },
+    updateUserStatus(userStatus) {
+        return instance.put(`profile/status`, {status: userStatus})
             .then(response => {
                 return response.data
             })

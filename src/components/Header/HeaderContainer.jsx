@@ -1,6 +1,6 @@
 import react from "react";
 import { connect } from "react-redux";
-import {getUserLoginThunk} from '../../redux/auth-reducer'
+import {getUserLoginThunk, toLogout} from '../../redux/auth-reducer'
 import Header from "./Header";
 
 
@@ -23,4 +23,4 @@ let mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {getUserLoginThunk}) (HeaderContainer);
+export default connect(mapStateToProps, {getUserLoginThunk, toLogout}) (HeaderContainer);

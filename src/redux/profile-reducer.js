@@ -1,8 +1,8 @@
 import {profileAPI} from '../api/api'
 
 const addNewPost = 'ADD-NEW-POST'
-const updatePostText = 'UPDATE-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
+const SET_USER_STATUS = 'SET_USER_STATUS'
 
 let initialState = {
     posts: [
@@ -10,7 +10,8 @@ let initialState = {
         {id: 1, message: 'I like pizza!', likes: 100},
       ],
     newPostText: 'it-k',
-    userProfile: null
+    userProfile: null,
+    userStatus: ''
 }
 
 export const profileReducer = (state = initialState, action) => {
@@ -18,7 +19,7 @@ export const profileReducer = (state = initialState, action) => {
         case addNewPost: {
             let newPost = {
                 id:3,
-                message: state.newPostText,
+                message: action.post,
                 likes: 8
               };
             return {
@@ -27,31 +28,31 @@ export const profileReducer = (state = initialState, action) => {
                 newPostText: '',
             }
         }
-        case updatePostText:
-            return {
-                ...state,
-                newPostText : action.newText
-            }
         case SET_USER_PROFILE:
             return {
                 ...state,
                 userProfile : action.userProfile
                 }
+        case SET_USER_STATUS: 
+            return {
+                ...state,
+                userStatus: action.userStatus
+            }
         default:
             return state;
     }
 }
 
-export const addNewPostActionCreator = () => ({
-    type: addNewPost
+export const addNewPostActionCreator = (post) => ({
+    type: addNewPost, post
   })
-  
-export const onPostChangeActionCreator = (newText) => ({
-    type: updatePostText, newText: newText
-})
 
 export const setUserProfile = (userProfile) => ({
     type: SET_USER_PROFILE, userProfile
+})
+
+export const setUserStatus = (userStatus) => ({
+    type: SET_USER_STATUS, userStatus
 })
 
 
@@ -65,3 +66,20 @@ export const getUserProfileThunk = (userId) => {
     }
 } 
 
+export const getUserStatusThunk = (userId) => {
+    return (dispatch) => {
+        profileAPI.getUserStatus(userId).then( data => {
+            dispatch(setUserStatus(data))
+        })
+    }
+}
+
+export const updateUserStatusThunk = (userStatus) => {
+    return (dispatch) => {
+        profileAPI.updateUserStatus(userStatus).then( data => {
+            if (data.resultCode === 0) {
+                dispatch(setUserStatus(userStatus))
+            }
+        })
+    }
+}

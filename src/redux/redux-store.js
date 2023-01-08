@@ -5,7 +5,9 @@ import { authReducer } from "./auth-reducer";
 import {musicReducer} from "./music-reducer";
 import { profileReducer } from "./profile-reducer";
 import userReducer from "./users-reducer";
+import {reducer as formReducer} from 'redux-form'
 import thunkMiddleware from 'redux-thunk'
+import { appReducer } from "./app-reducer";
 
 let reducers = combineReducers({
     profilePage : profileReducer,
@@ -13,6 +15,8 @@ let reducers = combineReducers({
     usersPage: userReducer,
     musicPage: musicReducer,
     auth: authReducer,
+    form: formReducer,
+    app: appReducer
     // navbar : friendsReducer
 })
 

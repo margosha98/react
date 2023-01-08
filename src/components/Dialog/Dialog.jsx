@@ -1,22 +1,17 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { Field, reduxForm } from "redux-form";
 import classes from './Dialog.module.css'
 import MessageItem from "./MessageItem/MessageItem";
+import NewMessage from "./NewMessage/NewMessage";
 import PersonItem from "./PersonItem/PersonItem";
 
 const Dialog = (props) => {
     let dialogsElements = props.dialogsElements.dialogs.map( d => < PersonItem id={d.id} name={d.name}/>)
     let messagesElements = props.dialogsElements.messages.map( m => <MessageItem message={m.message} />)
 
-    let newMessageElement = React.createRef();
-
-    let addNewMessage = () => {
-        props.onAddMessage()
-    }
-
-    let updateTextMessage = () => {
-        let text = newMessageElement.current.value;
-        props.onUpdateTextMessage(text)
+    let addNewMessage = (values) => {
+        props.addMessage(values.newMessage)
     }
 
     if (!props.isAuth) {return <Navigate to={'/login'}/>}
@@ -31,10 +26,7 @@ const Dialog = (props) => {
             </div>
 
             <div>
-                <textarea ref={newMessageElement} value={props.dialogsElements.newTextMessage} onChange={updateTextMessage}  />
-                <div>
-                    <button onClick={addNewMessage} > Add post</button>
-                </div>
+                <NewMessage onSubmit={addNewMessage} />
             </div>
         </div>
     )

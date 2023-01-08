@@ -11,8 +11,8 @@ let IS_FETCH_TOGGLE_BUTTON = 'IS_FETCH_TOGGLE_BUTTON'
 let initialState = {
     users: [],
     currentPage: 3,
-    totalUsers: 20,
-    pageSize: 7,
+    totalUsers: 30,
+    pageSize: 10,
     isLoading: false,
     isToggle: [],
 
