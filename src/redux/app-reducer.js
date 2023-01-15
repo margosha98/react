@@ -24,14 +24,11 @@ export const initializedSuccess = () => ({
     type: INITIALIZED_SUCCESS
 })
 
-// export const initializeApp = () => {
-//     return (dispatch) => {
-//         let promise = dispatch(getUserLoginThunk())
-
-//     promise.all([promise]
-//         .then(() => {
-//         dispatch(initializedSuccess())
-//     }))
+export const initializeApp = () => 
+    (dispatch) => {
+        let promise = dispatch(getUserLoginThunk())
+    Promise.all([promise]).then(() => {
+        dispatch(initializedSuccess())
+    })
                             
-//     }
-// } 
+    }

@@ -7,13 +7,12 @@ import Post from "./Post/Post";
 
 
 const MyPosts = (props) => {
-
     let onAddNewPos = (values) => {
-        console.log(values.postText)
         props.addNewPost(values.postText)
     }
 
     let postsElements = props.posts.map( p => <Post message={p.message} likes={p.likes}/>)
+
     return(
         <div className={classes.posts}>
             <h2>My posts </h2>

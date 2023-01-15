@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { getCurrenttPage, getIsLoading, getIsToggle, getPageSize, getTotalUsers, getUsersPage } from "../../redux/user-selector";
 import { setCurrentPage, getUsersThunk , toUnfollowThunk, toFollowThunk} from "../../redux/users-reducer";
 import Preloader from "../public/Preloader/Preloader";
 import Users from "./Users";
@@ -34,12 +35,12 @@ class UsersContainer extends React.Component {
 
 let addStateToProps = (state) => {
     return {
-        usersPage: state.usersPage,
-        currentPage: state.usersPage.currentPage,
-        totalUsers: state.usersPage.totalUsers,
-        pageSize: state.usersPage.pageSize,
-        isLoading: state.usersPage.isLoading,
-        isToggle: state.usersPage.isToggle
+        usersPage: getUsersPage(state),
+        currentPage: getCurrenttPage(state),
+        totalUsers: getTotalUsers(state),
+        pageSize: getPageSize(state),
+        isLoading: getIsLoading(state),
+        isToggle: getIsToggle(state)
     }
 }
 

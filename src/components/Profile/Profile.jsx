@@ -3,7 +3,7 @@ import classes from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import Preloader from "../public/Preloader/Preloader";
-import ProfileStatus from './ProfileInfo/ProfileStatus';
+import ProfileStatusHooks from './ProfileInfo/ProfileStatusHooks';
 
 const Profile = (props) => {
     if (!props.userProfile) {
@@ -14,12 +14,13 @@ const Profile = (props) => {
 
     return(
         <div className={classes.content}>
+            <ProfileStatusHooks status={props.userStatus || 'Статус не был установлен'}
+                updateUserStatus={props.updateUserStatusThunk} />
             <ProfileInfo {...props.userProfile}/>
             <MyPostsContainer store = {props.store}/>
-            <ProfileStatus status={props.userStatus}
-                updateUserStatus={props.updateUserStatusThunk} />
         </div>
     );
 }
 
 export default Profile;
+

@@ -7,7 +7,6 @@ import { toLogin } from "../../redux/auth-reducer";
 import { Navigate } from "react-router-dom";
 
 const LoginForm = (props) => {
-    console.log(props)
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
